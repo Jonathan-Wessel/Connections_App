@@ -6,8 +6,7 @@ import pytesseract
 
 client = OpenAI()
 
-client.api_key = "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"
-
+client.api_key = "my_key"
 
 def get_solution(prompt):
     """Send a prompt to OpenAI and get the solution."""
