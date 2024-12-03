@@ -15,6 +15,8 @@ def extract_text_from_image(image):
     """Extract text from an uploaded image using Tesseract OCR."""
     return pytesseract.image_to_string(image)
 
+#Try to use XML tags with response
+
 def get_solution(prompt):
     """Send a prompt to OpenAI and get the solution."""
     answer = client.chat.completions.create(
