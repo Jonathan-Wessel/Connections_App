@@ -8,7 +8,7 @@ import os
 load_dotenv()
 
 client = OpenAI(
-    api_key = os.getenv("OPENAI_API_KEY"),
+    api_key = st.secrets["OPEN_API_KEY"],
 )
 
 def extract_text_from_image(image):
