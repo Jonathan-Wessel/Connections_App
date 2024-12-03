@@ -7,9 +7,9 @@ import os
 
 load_dotenv()
 
-client = OpenAI()
-
-client.api_key = os.getenv("API_KEY")
+client = OpenAI(
+    api_key = os.getenv("OPENAI_API_KEY"),
+)
 
 def extract_text_from_image(image):
     """Extract text from an uploaded image using Tesseract OCR."""
