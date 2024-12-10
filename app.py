@@ -1,5 +1,4 @@
 import streamlit as st
-from streamlit_drawable_canvas import st_canvas
 from openai import OpenAI
 from PIL import Image
 from dotenv import load_dotenv
