@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 import pytesseract
 import os
 
+st.set_page_config(page_title="NYT Connections Solver", page_icon="🧩", layout="wide")
+
 # Load environment variables
 load_dotenv()
 
