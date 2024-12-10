@@ -1,9 +1,12 @@
 import streamlit as st
+from streamlit_drawable_canvas import st_canvas
 from openai import OpenAI
 from PIL import Image
 from dotenv import load_dotenv
+from streamlit_cropper import st_cropper
 import pytesseract
 import os
+import numpy as np
 
 st.set_page_config(page_title="NYT Connections Solver", page_icon="🧩", layout="wide")
 
@@ -70,7 +73,7 @@ def get_solution(prompt):
                 "role": "user",
                 "content": (
                     "You are going to be solving New York Times connections. "
-                    "These are the words you will be connecting. I just want the final answers in your response, "
+                    "These are the words you will be connecting. Put them into catagories based on a common theme between them. The only words that I car about are the sixteen capitalized words after the phrase Create groups of four I just want the final answers in your response, "
                     "nothing else. Give me your finalized answers in a bulleted list separated by commas of the four groups, I also want you to add line breaks like in a strang to make a new line for each group: "
                     + prompt
                 ),
@@ -86,16 +89,19 @@ page = st.sidebar.radio("Go to", ["Upload Image", "Solved Connections"])
 if page == "Upload Image":
     st.title("🖼️ Upload NYT Connections Image")
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
-    if uploaded_file:
-        # Display the uploaded image
-        image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image", use_container_width=True)
 
-        # Extract text from the image
+
+    if uploaded_file:
+        image = Image.open(uploaded_file)
+        st.write("Double click to save crop")
+        cropped_img = st_cropper(image, realtime_update=False, box_color='#000FF',
+                                aspect_ratio=None)
         with st.spinner("Extracting text..."):
-            extracted_text = extract_text_from_image(image)
+            extracted_text = extract_text_from_image(cropped_img)
+            print(extracted_text)
             st.session_state["extracted_text"] = extracted_text  # Store text in session state
             st.success("Text extracted successfully! Navigate to 'Solved Connections' to see the solution.")
+
 
 elif page == "Solved Connections":
     st.title("✅ Solved Connections")
